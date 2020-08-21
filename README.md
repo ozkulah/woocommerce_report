@@ -31,7 +31,7 @@ Open your woocommerce website panel, **woocommerce-> settings -> advanced -> RES
 
 Create a rest api key, it will provide these two fields. So you can access woocommerce reports directly.
 
-Inside these program, I only provided **status==completed**
+Inside this program, I only provided **status==completed**
 transaction reports and their tax calculation for sweden.
 You can play with code to change them.
 
