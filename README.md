@@ -2,6 +2,9 @@
 
 I created a report software with woocommerce system.
 
+Sample report view (Upper part, there are company info etc.)
+![Alt text](https://github.com/ozkulah/woocommerce_report/blob/master/output/Screenshot%202020-08-21%20at%2018.43.50.png "Report")
+
 Requirements;
 ```
 $ pip install flask
