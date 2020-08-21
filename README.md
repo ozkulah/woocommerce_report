@@ -34,6 +34,11 @@ Inside these program, I only provided **status==completed**
 transaction reports and their tax calculation for sweden.
 You can play with code to change them.
 
+For send mail part, change 
+**smtplib.SMTP_SSL("mailcluster.loopia.se", 465, context=context)**
+part and add your mail sender SMTP info.
+
+
 If you want to work directly from code use main method, otherwise I created a web gui with flask.
 
 
