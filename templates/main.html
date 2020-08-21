@@ -1,0 +1,178 @@
+<!doctype html>
+<style>
+        table {
+        table-layout: auto;
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #c7c7c7;
+        }
+
+        .logo{
+          width: 180px;
+        }
+        hr {
+            border: 1px solid #179AFF;
+         }
+         #block1 {
+            float:left;
+        }
+
+        #block2
+        {
+            float:right;
+            width: 180px;
+            padding: 10px;
+        }
+        .wrapper {
+    width:600px;
+    margin: left auto;
+}
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: right;
+}​
+
+#table-scroll {
+  height:150px;
+  overflow:auto;
+  margin-top:20px;
+}
+#table-wrapper {
+  position:relative;
+}
+    </style>
+<script type="text/javascript">
+    function GetSelected() {
+        //Reference the Table.
+        var grid = document.getElementById("reports");
+
+        //Reference the CheckBoxes in Table.
+        var checkBoxes = grid.getElementsByTagName("INPUT");
+        var outputData = []
+        //Loop through the CheckBoxes.
+        for (var i = 0; i < checkBoxes.length; i++) {
+            if (checkBoxes[i].checked) {
+                var row = checkBoxes[i].parentNode.parentNode;
+                outputData.push(row.cells[2].innerHTML);
+            }
+        }
+        var date_start = document.getElementById("date_start").value;
+        var date_end = document.getElementById("date_end").value;
+        if (!date_start || !date_end)
+        {
+            alert("Pick a date range");
+        }
+        else
+        {
+            window.location.replace("/send_mail?ids="+outputData +"&date_start="+ date_start +"&date_end="+ date_end);
+        }
+    }
+</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<div class="wrapper">
+    <img src="https://avatars0.githubusercontent.com/u/39606916?s=460&u=03b1f696639ca1c25cad5163175f51e4a06c40f3&v=4" class="logo"/>
+    <hr>
+    <h2>Arvix Report</h2>
+    <form action="/add-config">
+        <div class="container">
+            <input type="hidden" name="id" id="id" value="{{result['active_customer']['org_nummer']}}">
+            <label for="name"><b>Företag</b></label>
+            <input type="text"  name="name" id="name"  value="{{result['active_customer']['name']}}" required>
+            <br>
+            <br>
+            <label for="org_nummer"><b>Org. Nummer</b></label>
+            <input type="text" name="org_nummer" id="org_nummer" value="{{result['active_customer']['org_nummer']}}" required>
+            <br>
+            <br>
+            <label for="website"><b>Websidda</b></label>
+            <input type="text" placeholder="www.website.se" name="website" id="website" value="{{result['active_customer']['website']}}" required>
+            <br>
+            <br>
+            <label for="email"><b>E-post</b></label>
+            <input type="text" placeholder="aa@website.se" name="email" id="email" value="{{result['active_customer']['email']}}" required>
+            <label>("," mellan e-posten)</label>
+            <br>
+            <br>
+            <hr>
+            <label style="text-align:center"><b>WooCommerce</b></label>
+            <br>
+            <br>
+            <label for="con_key"><b>Consumer Key</b></label>
+            <input type="text" name="con_key" id="con_key" value="{{result['active_customer']['con_key']}}" required>
+            <br>
+            <br>
+            <label for="con_secret"><b>Consumer Secret</b></label>
+            <input type="text" name="con_secret" id="con_secret" value="{{result['active_customer']['con_secret']}}" required>
+            <br>
+            <br>
+            <button type="submit" class="editbutton">Lagg till</button>
+            <hr>
+        </div>
+    </form>
+    <form action="/send_mail" method="get">
+    </form>
+    <div id="table-wrapper">
+    <div id="table-scroll">
+
+        <table class="config" id="reports">
+            <tbody>
+            <tr>
+                <td><strong>Checka</strong></td>
+                <td><strong>Företag</strong></td>
+                <td><strong>Org. Nummer</strong></td>
+                <td><strong>E-Post</strong></td>
+                <td><strong>Uppdatering</strong></td>
+                <td><strong>Ta bort</strong></td>
+            </tr>
+            {% for data in result['detail_report'] %}
+            <tr>
+                <td><input type="checkbox" id="select" checked></td>
+                <td>{{data["name"]}}</td>
+                <td>{{data["org_num"]}}</td>
+                <td>{{data["email"]}}</td>
+                <td>
+                    <form>
+                        <input type="hidden" name="org_num" value={{data["org_num"]}} />
+                        <button type="submit" id="update" formaction="/update" formmethod="get">Uppdatering</button>
+                    </form>
+                </td>
+                <td>
+                    <form>
+                        <input type="hidden" name="org_num" value={{data["org_num"]}} />
+                        <button  type="submit" id="delete" formaction="/delete" formmethod="get">Ta bort</button>
+                    </form>
+                </td>
+            </tr>
+            {%endfor%}
+            </tbody>
+        </table>
+        <hr>
+        <label for="Report_Start">Report Start:</label>
+        <label for="Report_End">Report End:</label>
+        <br>
+        <input type="date" id="date_start">
+        <input type="date" id="date_end">
+        <br>
+        <input type="button" value="Skicka E-post" onclick="GetSelected()" />
+
+    </div>
+    </div>
+</div>
+</body>
+</html>

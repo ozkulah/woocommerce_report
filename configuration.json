@@ -1,0 +1,31 @@
+{
+    "info": {
+        "name": "Your Company Name",
+        "fullname": "Your Company Name Full name",
+        "address": "Address"
+    },
+    "email": {
+        "sender": "sender mail",
+        "sender_pass": "pass",
+        "subject": "Your Company Monthly Report: {}-{}",
+        "body": "Hello {},\nYour monthly report attached to this mail.\nBest Regards,\nYour Company "
+    },
+    "reports": [
+        {
+            "name": "AA",
+            "org_nummer": "aa",
+            "website": "www.websiteadress.se",
+            "email": [
+                "receiver email"
+            ],
+            "adress": "",
+            "woocommerce": {
+                "url": "https://www.websiteadress.se",
+                "consumer_key": "key",
+                "consumer_secret": "secret",
+                "wp_api": true,
+                "version": "wc/v3"
+            }
+        }
+    ]
+}
