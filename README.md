@@ -22,6 +22,7 @@ reports -> name etc. fields..
 ```
 
 Inside the reports-> woocommerce ;
+
 There are two fields for each website
 "consumer_key"
 "consumer_secret"
@@ -38,6 +39,12 @@ For send mail part, change
 **smtplib.SMTP_SSL("mailcluster.loopia.se", 465, context=context)**
 part and add your mail sender SMTP info.
 
+
+You can also create a packet after edit with pyinstaller.
+```
+$ pip install pyinstaller
+$ pyinstaller --onefile --add-data 'templates:templates' --add-data 'configuration.json:.' report.py
+```
 
 If you want to work directly from code use main method, otherwise I created a web gui with flask.
 
